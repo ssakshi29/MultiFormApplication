@@ -1,5 +1,8 @@
 Assignment 1
 
+Link- https://multiformapplication.netlify.app
+
+
 Design an application that has 3 pages
 
 Page1- Ask about personal details
