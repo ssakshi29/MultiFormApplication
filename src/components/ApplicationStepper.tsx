@@ -11,6 +11,10 @@ type props = {
   ];
   currentStep: number;
   isComplete: boolean;
+  isPersonalInfoFilled:boolean;
+  isMedicalInfoFilled:boolean;
+  isEmployeeInfoFilled:boolean;
+  // stepRef: any;
 };
 
 const StepPosition = styled.span`
@@ -72,15 +76,32 @@ const ApplicationStepper: React.FC<props> = ({
   stepConfig,
   currentStep,
   isComplete,
+  isPersonalInfoFilled,
+  isMedicalInfoFilled,
+  isEmployeeInfoFilled,
 }) => {
   const navigate = useNavigate();
 
-  const calculateProgress = (100 / (stepConfig.length - 1)) * (currentStep - 1);
+
+  const calculateProgress = (100 / (stepConfig.length - 1)) * (currentStep - 1) 
+  || 
+  isEmployeeInfoFilled ? 100 : isPersonalInfoFilled ? 50 : 0;
+           
 
   const handleClick = (index: number) => {
-    if (index < currentStep) {
+    
+    if (index < currentStep ) {
+
       navigate(stepConfig[index]?.path);
     }
+    else if (index+1 === 2 && isPersonalInfoFilled)
+      {
+        navigate(stepConfig[index]?.path);
+      }
+    else if(index+1 === 3 && isEmployeeInfoFilled)
+      {
+        navigate(stepConfig[index]?.path);
+      }
   };
 
   return (
@@ -89,7 +110,7 @@ const ApplicationStepper: React.FC<props> = ({
         {stepConfig.map((step, index) => {
           return (
             <StepWrapper key={step.name} onClick={() => handleClick(index)}>
-              {currentStep > index + 1 || isComplete ? (
+              {currentStep > index + 1 || (isPersonalInfoFilled && index+1 === 1) || (index+1 === 2 && isEmployeeInfoFilled) || (index+1 === 3 && isMedicalInfoFilled) ? (
                 <StepPositionActive>&#10003;</StepPositionActive>
               ) : currentStep === index + 1 ? (
                 <StepPositionActive>{index + 1}</StepPositionActive>

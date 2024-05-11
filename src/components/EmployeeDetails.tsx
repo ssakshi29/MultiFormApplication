@@ -64,7 +64,7 @@ const ErrorContainer = styled.div`
   color: red;
 `;
 
-export const EmployeeDetails = ({ handleStep, handlePreviousStep }) => {
+export const EmployeeDetails = ({ handleStep, handlePreviousStep, setIsEmployeeInfoFilled }) => {
   const navigate = useNavigate();
 
   const {
@@ -95,6 +95,7 @@ export const EmployeeDetails = ({ handleStep, handlePreviousStep }) => {
 
   const handleSave = (data: EmployeeData) => {
     localStorage.setItem("employee", JSON.stringify(data));
+    setIsEmployeeInfoFilled(true);
     handleStep();
     navigate("/employee/medical");
   };

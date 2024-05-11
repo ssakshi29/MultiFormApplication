@@ -24,6 +24,11 @@ const applicationSteps = [
 function App() {
   const [currentStep, setcurrentStep] = useState(1);
   const [isComplete, setIsComplete] = useState(false);
+  const [isPersonalInfoFilled, setIsPersonalInfoFilled] = useState(localStorage.getItem("personalDetails"));
+  const [isMedicalInfoFilled, setIsMedicalInfoFilled] = useState(localStorage.getItem("medicalDetails"));
+  const [isEmployeeInfoFilled, setIsEmployeeInfoFilled] = useState(localStorage.getItem("employee"));
+  // const stepCur = useRef(1);
+  
 
   const handleStep = () => {
     setcurrentStep((prev) => {
@@ -34,6 +39,7 @@ function App() {
         return prev + 1;
       }
     });
+    // stepCur.current = currentStep+1;
   };
 
   const handlePreviousStep = () => {
@@ -56,15 +62,20 @@ function App() {
               stepConfig={applicationSteps}
               currentStep={currentStep}
               isComplete={isComplete}
+              isPersonalInfoFilled={isPersonalInfoFilled}
+              isMedicalInfoFilled={isMedicalInfoFilled}
+              isEmployeeInfoFilled={isEmployeeInfoFilled}
+              // stepRef={stepCur}
             />
           }
         >
-          <Route index element={<PersonalDetails handleStep={handleStep} />} />
+          <Route index element={<PersonalDetails handleStep={handleStep}  setIsPersonalInfoFilled={setIsPersonalInfoFilled}/>} />
           <Route
             path="employee"
             element={
               <EmployeeDetails
                 handleStep={handleStep}
+                setIsEmployeeInfoFilled={setIsEmployeeInfoFilled}
                 handlePreviousStep={handlePreviousStep}
               />
             }
@@ -74,6 +85,7 @@ function App() {
             element={
               <MedicalDetails
                 handleStep={handleStep}
+                setIsMedicalInfoFilled={setIsMedicalInfoFilled}
                 handlePreviousStep={handlePreviousStep}
               />
             }

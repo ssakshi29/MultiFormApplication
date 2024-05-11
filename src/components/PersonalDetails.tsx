@@ -55,7 +55,7 @@ const ErrorContainer = styled.div`
   color: red;
 `;
 
-export const PersonalDetails = ({ handleStep }) => {
+export const PersonalDetails = ({ handleStep , setIsPersonalInfoFilled }) => {
   const navigate = useNavigate();
 
   const {
@@ -83,6 +83,7 @@ export const PersonalDetails = ({ handleStep }) => {
   const handleSave = (data: PersonalData) => {
     handleStep();
     localStorage.setItem("personalDetails", JSON.stringify(data));
+    setIsPersonalInfoFilled(true);
     navigate("/employee");
   };
 

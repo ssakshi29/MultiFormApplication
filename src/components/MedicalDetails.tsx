@@ -59,7 +59,7 @@ const ErrorContainer = styled.div`
   color: red;
 `;
 
-export const MedicalDetails = ({ handleStep, handlePreviousStep }) => {
+export const MedicalDetails = ({ handleStep, handlePreviousStep, setIsMedicalInfoFilled }) => {
   const navigate = useNavigate();
 
   const {
@@ -90,6 +90,7 @@ export const MedicalDetails = ({ handleStep, handlePreviousStep }) => {
 
   const handleSave = (data: MedicalData) => {
     localStorage.setItem("medicalDetails", JSON.stringify(data));
+    setIsMedicalInfoFilled(true);
     handleStep();
     navigate("/details");
   };
